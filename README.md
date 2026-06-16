@@ -1,32 +1,45 @@
-# Rust Learning Journey
+# Rust Learning Journey 🦀
 
-Welcome to your Rust learning repository! This project is a guided exploration of the Rust programming language, led by your dedicated mentor.
+Welcome to your Rust learning repository! This project is a guided exploration of the Rust programming language, led by your dedicated mentor, focusing on a strong foundation before building a CLI project.
 
 ## Curriculum Overview
 
-| Lesson | Topic | Core Concepts | Status |
+| Lesson | Topic | Status | Document |
 | :--- | :--- | :--- | :--- |
-| **1** | [Variables & Mutability](#) | `let`, `mut`, Shadowing, Static Typing | ✅ Completed |
-| **2** | [Data Types & Functions](#) | Tuples, Arrays, If-Expressions, Implicit Returns | ✅ Completed |
-| **3** | [Ownership Basics](#) | Scope, Move, Clone, Stack vs Heap | ✅ Completed |
-| **4** | [Borrowing & References](#) | Immutable vs Mutable Borrowing, Borrowing Rules | ✅ Completed |
-| **5** | [Structs & Methods](#) | Data modeling, `impl` blocks, Associated Functions | ✅ Completed |
-| **6** | [Enums & Pattern Matching](#) | Algebraic Data Types, `match`, `Option<T>` | ✅ Completed |
-| **7** | [Error Handling](#) | `Result<T, E>`, the `?` operator, `unwrap`/`expect` | ✅ Completed |
-| **8** | [Traits (Interfaces)](#) | Shared behavior, Default impls, Trait Bounds | ✅ Completed |
+| **0** | Setup & "Hello, World!" | ✅ Completed | [View Doc](docs/lesson_00_setup_hello_world.md) |
+| **1** | Variables & Mutability | ✅ Completed | [View Doc](docs/lesson_01_variables_mutability.md) |
+| **2** | Data Types & Functions | ✅ Completed | [View Doc](docs/lesson_02_data_types_functions.md) |
+| **3** | Control Flow (if, loop, while, for) | ✅ Completed | [View Doc](docs/lesson_03_control_flow.md) |
+| **4** | Ownership Basics | ✅ Completed | [View Doc](docs/lesson_04_ownership_basics.md) |
+| **5** | Borrowing & References | ⏳ Pending | - |
+| **6** | Lifetimes Basics | ⏳ Pending | - |
+| **7** | Structs & Methods | ⏳ Pending | - |
+| **8** | Enums & Pattern Matching | ⏳ Pending | - |
+| **9** | Strings & Collections (Vec, HashMap) | ⏳ Pending | - |
+| **10** | Error Handling | ⏳ Pending | - |
+| **11** | Smart Pointers (Box, Rc, RefCell) | ⏳ Pending | - |
+| **12** | Traits & Generics | ⏳ Pending | - |
+| **13** | Iterators & Closures | ⏳ Pending | - |
+| **14** | Modules & Project Structure | ⏳ Pending | - |
+| **15** | Concurrency (Threads, Channels, Mutex) | ⏳ Pending | - |
+| **16** | Testing & Documentation | ⏳ Pending | - |
+| **17** | Macros & Advanced Features | ⏳ Pending | - |
 
 ## Project Structure
+
 - `src/main.rs`: Our primary playground where we write and run code for each lesson.
+- `docs/`: Contains reference documents, concept explanations, and exercises for every completed lesson.
 - `Cargo.toml`: The manifest file for our project and its dependencies.
-- `AGENTS.md`: Defines the mentorship style and goals for this project.
+- `AGENTS.md` / `GEMINI.md`: Mission control files that track the mentorship style, exact goals, and curriculum state.
 
 ## How to Run
+
 To run the current code in `src/main.rs`, use:
 ```bash
 cargo run
 ```
 
-To check for compilation errors without building:
+To check for compilation errors without building (much faster):
 ```bash
 cargo check
 ```

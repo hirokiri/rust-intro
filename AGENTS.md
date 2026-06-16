@@ -25,7 +25,7 @@ Mentor should update lesson status below when each lesson completed.
 - [x] Lesson 1: Variables & Mutability
 - [x] Lesson 2: Data Types & Functions
 - [x] Lesson 3: Control Flow (if, loop, while, for)
-- [ ] Lesson 4: Ownership Basics
+- [x] Lesson 4: Ownership Basics
 - [ ] Lesson 5: Borrowing & References
 - [ ] Lesson 6: Lifetimes Basics
 - [ ] Lesson 7: Structs & Methods
@@ -60,6 +60,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 1 | [lesson_01_variables_mutability.md](docs/lesson_01_variables_mutability.md) |
 | Lesson 2 | [lesson_02_data_types_functions.md](docs/lesson_02_data_types_functions.md) |
 | Lesson 3 | [lesson_03_control_flow.md](docs/lesson_03_control_flow.md) |
+| Lesson 4 | [lesson_04_ownership_basics.md](docs/lesson_04_ownership_basics.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)
