@@ -11,8 +11,8 @@ Welcome to your Rust learning repository! This project is a guided exploration o
 | **2** | Data Types & Functions | ✅ Completed | [View Doc](docs/lesson_02_data_types_functions.md) |
 | **3** | Control Flow (if, loop, while, for) | ✅ Completed | [View Doc](docs/lesson_03_control_flow.md) |
 | **4** | Ownership Basics | ✅ Completed | [View Doc](docs/lesson_04_ownership_basics.md) |
-| **5** | Borrowing & References | ⏳ Pending | - |
-| **6** | Lifetimes Basics | ⏳ Pending | - |
+| **5** | Borrowing & References | ✅ Completed | [View Doc](docs/lesson_05_borrowing_references.md) |
+| **6** | Lifetimes Basics | ⏳ Pending | [View Doc](docs/lesson_06_lifetimes_basics.md) |
 | **7** | Structs & Methods | ⏳ Pending | - |
 | **8** | Enums & Pattern Matching | ⏳ Pending | - |
 | **9** | Strings & Collections (Vec, HashMap) | ⏳ Pending | - |
