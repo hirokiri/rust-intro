@@ -27,7 +27,7 @@ Mentor should update lesson status below when each lesson completed.
 - [x] Lesson 3: Control Flow (if, loop, while, for)
 - [x] Lesson 4: Ownership Basics
 - [x] Lesson 5: Borrowing & References
-- [ ] Lesson 6: Lifetimes Basics
+- [x] Lesson 6: Lifetimes Basics
 - [ ] Lesson 7: Structs & Methods
 - [ ] Lesson 8: Enums & Pattern Matching
 - [ ] Lesson 9: Strings & Collections (Vec, HashMap)
@@ -63,6 +63,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 4 | [lesson_04_ownership_basics.md](docs/lesson_04_ownership_basics.md) |
 | Lesson 5 | [lesson_05_borrowing_references.md](docs/lesson_05_borrowing_references.md) |
 | Lesson 6 | [lesson_06_lifetimes_basics.md](docs/lesson_06_lifetimes_basics.md) |
+| Lesson 7 | [lesson_07_structs_methods.md](docs/lesson_07_structs_methods.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)

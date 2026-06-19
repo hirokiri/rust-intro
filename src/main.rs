@@ -1,96 +1,93 @@
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
+    }
+
+    fn scale(&mut self, factor: u32) {
+        self.width *= factor;
+        self.height *= factor;
+    }
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
+}
+
+#[derive(Debug)]
+struct User {
+    username: String,
+    email: String,
+    active: bool,
+    sign_in_count: u64,
+}
+
+fn build_user(username: String, email: String) -> User {
+    User {
+        username,
+        email,
+        active: true,
+        sign_in_count: 1,
+    }
+}
+
 fn main() {
-    // =========================================================================
-    // 1. The Lifetime Problem: Out-of-scope borrow
-    // =========================================================================
-    // Try to understand what this commented block is doing. 
-    // It would fail to compile because `x` goes out of scope before `r` is printed.
-    /*
-    let r;
-    {
-        let x = 5;
-        r = &x; // ❌ Compile Error: `x` does not live long enough!
-    }
-    println!("r: {}", r);
-    */
+    println!("--- Lesson 7: Structs & Methods ---");
 
-    // =========================================================================
-    // 2. The `longest` Function & Explicit Lifetimes
-    // =========================================================================
-    let string1 = String::from("Rust rules!");
-    let string2 = "Go";
-
-    // `longest` compares string1 and string2, and returns a reference.
-    // The compiler uses the lifetime parameter `'a` to know that the return
-    // value lives as long as the SHORTER of string1 and string2.
-    let result = longest(string1.as_str(), string2);
-    println!("2. Longest string: {}", result);
-
-    // =========================================================================
-    // 3. Different Scopes & Lifetimes
-    // =========================================================================
-    let string_a = String::from("Systems programming");
-    {
-        let string_b = String::from("Python");
-        // Because string_b is in a smaller inner scope, the returned reference
-        // `result_inner` cannot outlive string_b!
-        let result_inner = longest(string_a.as_str(), string_b.as_str());
-        println!("3. Longest in inner scope: {}", result_inner); // ✅ Works!
-    }
-    // println!("result_inner is no longer valid here!"); // ❌ If printed here, it would fail!
-
-    // =========================================================================
-    // 4. Your Exercises Start Here!
-    // =========================================================================
-    println!("\n--- Running Exercises ---");
-
-    // Exercise 6-1: Call `longest` with variables of different scopes
-    // and demonstrate both the working case (using the result inside the scope)
-    // and a commented-out failing case (using it outside).
-
-    let string1 = String::from("Systems programming");
-    {
-        let string2 = String::from("Python");
-        // Because string_b is in a smaller inner scope, the returned reference
-        // `result_inner` cannot outlive string_b!
-        let result_inner = longest(string1.as_str(), string2.as_str());
-        println!("3. Longest in inner scope: {}", result_inner); // ✅ Works!
-    }
-    // println!("3. Longest in inner scope: {}", result_inner); // ❌ No longer compile
-
-    // Exercise 6-2: Test your `first_word` function here.
-    let sentence = String::from("Hello Rust world");
-    let first = first_word(&sentence);
-    println!("Ex 6-2 - First word: {}", first);
-
-    // Exercise 6-3: Test your `Book` struct with lifetime annotations here.
-    let title = String::from("The Rust Book");
-    let author = String::from("Steve Klabnik");
-    let my_book = Book {
-        title: &title,
-        author: &author,
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
     };
-    println!("Book: {} by {}", my_book.title, my_book.author);
-}
+    let rect2 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect3 = Rectangle {
+        width: 60,
+        height: 45,
+    };
 
-// The `longest` function takes two string slices that live for at least `'a`
-// and returns a string slice that also lives for at least `'a`.
-fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
-    if x.len() > y.len() {
-        x
-    } else {
-        y
-    }
-}
+    println!("rect1: {:#?}", rect1);
+    println!("rect1 area: {}", rect1.area());
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 
-// TODO: Implement Exercise 6-2: first_word
-fn first_word(s: &str) -> &str {
-    let s_slice: Vec<&str> = s.split(' ').collect();
-    s_slice[0]
-}
+    let square = Rectangle::square(25);
+    println!("square: {:?}, area: {}", square, square.area());
 
-// TODO: Implement Exercise 6-3: Book struct
-struct Book<'a> {
-    title: &'a str,
-    author: &'a str,
+    let mut resizable = Rectangle {
+        width: 4,
+        height: 8,
+    };
+    println!("before scale: {:?}", resizable);
+    resizable.scale(3);
+    println!("after scale: {:?}", resizable);
 
+    let user1 = build_user(
+        String::from("hiro"),
+        String::from("hiro@example.com"),
+    );
+
+    let user2 = User {
+        email: String::from("new-hiro@example.com"),
+        ..user1
+    };
+
+    println!("user2: {:#?}", user2);
+    println!("user2 is active: {}", user2.active);
+    println!("user2 sign-in count: {}", user2.sign_in_count);
+    println!("user2 username: {}", user2.username);
+    println!("user2 email: {}", user2.email);
 }
