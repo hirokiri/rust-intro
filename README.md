@@ -12,9 +12,9 @@ Welcome to your Rust learning repository! This project is a guided exploration o
 | **3** | Control Flow (if, loop, while, for) | ✅ Completed | [View Doc](docs/lesson_03_control_flow.md) |
 | **4** | Ownership Basics | ✅ Completed | [View Doc](docs/lesson_04_ownership_basics.md) |
 | **5** | Borrowing & References | ✅ Completed | [View Doc](docs/lesson_05_borrowing_references.md) |
-| **6** | Lifetimes Basics | ⏳ Pending | [View Doc](docs/lesson_06_lifetimes_basics.md) |
-| **7** | Structs & Methods | ⏳ Pending | - |
-| **8** | Enums & Pattern Matching | ⏳ Pending | - |
+| **6** | Lifetimes Basics | ✅ Completed | [View Doc](docs/lesson_06_lifetimes_basics.md) |
+| **7** | Structs & Methods | ✅ Completed | [View Doc](docs/lesson_07_structs_methods.md) |
+| **8** | Enums & Pattern Matching | ✅ Completed | [View Doc](docs/lesson_08_enums_pattern_matching.md) |
 | **9** | Strings & Collections (Vec, HashMap) | ⏳ Pending | - |
 | **10** | Error Handling | ⏳ Pending | - |
 | **11** | Smart Pointers (Box, Rc, RefCell) | ⏳ Pending | - |

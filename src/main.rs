@@ -1,93 +1,31 @@
-#[derive(Debug)]
-struct Rectangle {
-    width: u32,
-    height: u32,
-}
+fn get_port(env_var: Option<&str>) -> u16 {
+    let default = 8080;
 
-impl Rectangle {
-    fn area(&self) -> u32 {
-        self.width * self.height
-    }
-
-    fn can_hold(&self, other: &Rectangle) -> bool {
-        self.width > other.width && self.height > other.height
-    }
-
-    fn scale(&mut self, factor: u32) {
-        self.width *= factor;
-        self.height *= factor;
-    }
-
-    fn square(size: u32) -> Rectangle {
-        Rectangle {
-            width: size,
-            height: size,
-        }
-    }
-}
-
-#[derive(Debug)]
-struct User {
-    username: String,
-    email: String,
-    active: bool,
-    sign_in_count: u64,
-}
-
-fn build_user(username: String, email: String) -> User {
-    User {
-        username,
-        email,
-        active: true,
-        sign_in_count: 1,
+    match env_var {
+        Some(port) => port.parse::<u16>().unwrap_or(default),
+        None => default,
     }
 }
 
 fn main() {
-    println!("--- Lesson 7: Structs & Methods ---");
+    let port = get_port(None);
+    println!("Port: {}", port);
 
-    let rect1 = Rectangle {
-        width: 30,
-        height: 50,
-    };
-    let rect2 = Rectangle {
-        width: 10,
-        height: 40,
-    };
-    let rect3 = Rectangle {
-        width: 60,
-        height: 45,
-    };
+    let port2 = get_port(Some("8081"));
+    println!("Port2: {}", port2);
 
-    println!("rect1: {:#?}", rect1);
-    println!("rect1 area: {}", rect1.area());
-    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
-    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+    let port3 = get_port(Some("8082"));
+    println!("Port3: {}", port3);
 
-    let square = Rectangle::square(25);
-    println!("square: {:?}, area: {}", square, square.area());
+    let port4 = get_port(Some("8083"));
+    println!("Port4: {}", port4);
 
-    let mut resizable = Rectangle {
-        width: 4,
-        height: 8,
-    };
-    println!("before scale: {:?}", resizable);
-    resizable.scale(3);
-    println!("after scale: {:?}", resizable);
+    let port5 = get_port(Some("8084"));
+    println!("Port5: {}", port5);
 
-    let user1 = build_user(
-        String::from("hiro"),
-        String::from("hiro@example.com"),
-    );
+    let port6 = get_port(Some("8085"));
+    println!("Port6: {}", port6);
 
-    let user2 = User {
-        email: String::from("new-hiro@example.com"),
-        ..user1
-    };
-
-    println!("user2: {:#?}", user2);
-    println!("user2 is active: {}", user2.active);
-    println!("user2 sign-in count: {}", user2.sign_in_count);
-    println!("user2 username: {}", user2.username);
-    println!("user2 email: {}", user2.email);
+    let port_invalid = get_port(Some("invalid"));
+    println!("Port (invalid input): {}", port_invalid);
 }

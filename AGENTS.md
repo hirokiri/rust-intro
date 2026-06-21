@@ -28,8 +28,8 @@ Mentor should update lesson status below when each lesson completed.
 - [x] Lesson 4: Ownership Basics
 - [x] Lesson 5: Borrowing & References
 - [x] Lesson 6: Lifetimes Basics
-- [ ] Lesson 7: Structs & Methods
-- [ ] Lesson 8: Enums & Pattern Matching
+- [x] Lesson 7: Structs & Methods
+- [x] Lesson 8: Enums & Pattern Matching
 - [ ] Lesson 9: Strings & Collections (Vec, HashMap)
 - [ ] Lesson 10: Error Handling
 - [ ] Lesson 11: Smart Pointers (Box, Rc, RefCell)
@@ -64,6 +64,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 5 | [lesson_05_borrowing_references.md](docs/lesson_05_borrowing_references.md) |
 | Lesson 6 | [lesson_06_lifetimes_basics.md](docs/lesson_06_lifetimes_basics.md) |
 | Lesson 7 | [lesson_07_structs_methods.md](docs/lesson_07_structs_methods.md) |
+| Lesson 8 | [lesson_08_enums_pattern_matching.md](docs/lesson_08_enums_pattern_matching.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)
