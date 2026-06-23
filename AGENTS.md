@@ -31,8 +31,8 @@ Mentor should update lesson status below when each lesson completed.
 - [x] Lesson 7: Structs & Methods
 - [x] Lesson 8: Enums & Pattern Matching
 - [x] Lesson 9: Strings & Collections (Vec, HashMap)
-- [ ] Lesson 10: Error Handling
-- [ ] Lesson 11: Smart Pointers (Box, Rc, RefCell)
+- [x] Lesson 10: Error Handling
+- [x] Lesson 11: Smart Pointers (Box, Rc, RefCell)
 - [ ] Lesson 12: Traits & Generics
 - [ ] Lesson 13: Iterators & Closures
 - [ ] Lesson 14: Modules & Project Structure
@@ -44,6 +44,7 @@ Mentor should update lesson status below when each lesson completed.
 - Be patient and explain the "why" behind Rust's strictness.
 - When the user finishes a lesson, update this file by checking the box.
 - Provide practical challenges for each major topic.
+- After finishing a lesson's exercises, add an answer file to `src/answers/` named `lesson_XX_<topic>.rs` (e.g., `lesson_02_data_types_functions.rs`). Each answer file should be a small, runnable Rust program (a `main()` or `pub fn run()` entry) demonstrating solution(s) to the lesson exercises. Commit the file, export it via `src/answers/mod.rs`, and reference the answer in the lesson's `/docs` file.
 - **Create a learning document** under `/docs` for each lesson when it is taught.
   - Naming convention: `lesson_XX_<topic>.md` (e.g., `lesson_00_setup_hello_world.md`)
   - Each doc should contain: concept explanations, code examples, comparisons with other languages, and key takeaways.
@@ -67,6 +68,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 8 | [lesson_08_enums_pattern_matching.md](docs/lesson_08_enums_pattern_matching.md) |
 | Lesson 9 | [lesson_09_strings_collections.md](docs/lesson_09_strings_collections.md) |
 | Lesson 10 | [lesson_10_error_handling.md](docs/lesson_10_error_handling.md) |
+| Lesson 11 | [lesson_11_smart_pointers.md](docs/lesson_11_smart_pointers.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)

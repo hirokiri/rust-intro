@@ -43,3 +43,18 @@ To check for compilation errors without building (much faster):
 ```bash
 cargo check
 ```
+
+Run individual lesson answer files in `src/answers/` (each file is a small standalone example with its own main()):
+
+```bash
+# Compile & run a single answer file (example):
+rustc src/answers/lesson_01_variables_mutability.rs -o /tmp/lesson_01 && /tmp/lesson_01
+
+# Compile & run all answer files (Linux/macOS):
+for f in src/answers/*.rs; do
+  echo "Running $f"
+  rustc "$f" -o "/tmp/$(basename "${f%.*}")" && "/tmp/$(basename "${f%.*}")"
+done
+```
+
+Note: These `rustc` commands compile each file as a standalone program. Use the loop to run every example in order; `cargo run` still builds the main crate.
