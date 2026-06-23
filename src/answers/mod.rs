@@ -1,0 +1,12 @@
+pub mod lesson_00_setup_hello_world;
+pub mod lesson_01_variables_mutability;
+pub mod lesson_02_data_types_functions;
+pub mod lesson_03_control_flow;
+pub mod lesson_04_ownership_basics;
+pub mod lesson_05_borrowing_references;
+pub mod lesson_06_lifetimes_basics;
+pub mod lesson_07_structs_methods;
+pub mod lesson_08_enums_pattern_matching;
+pub mod lesson_09_strings_collections;
+pub mod lesson_10_error_handling;
+pub mod lesson_11_smart_pointers;
