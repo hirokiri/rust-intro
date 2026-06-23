@@ -30,7 +30,7 @@ Mentor should update lesson status below when each lesson completed.
 - [x] Lesson 6: Lifetimes Basics
 - [x] Lesson 7: Structs & Methods
 - [x] Lesson 8: Enums & Pattern Matching
-- [ ] Lesson 9: Strings & Collections (Vec, HashMap)
+- [x] Lesson 9: Strings & Collections (Vec, HashMap)
 - [ ] Lesson 10: Error Handling
 - [ ] Lesson 11: Smart Pointers (Box, Rc, RefCell)
 - [ ] Lesson 12: Traits & Generics
@@ -65,6 +65,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 6 | [lesson_06_lifetimes_basics.md](docs/lesson_06_lifetimes_basics.md) |
 | Lesson 7 | [lesson_07_structs_methods.md](docs/lesson_07_structs_methods.md) |
 | Lesson 8 | [lesson_08_enums_pattern_matching.md](docs/lesson_08_enums_pattern_matching.md) |
+| Lesson 9 | [lesson_09_strings_collections.md](docs/lesson_09_strings_collections.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)
