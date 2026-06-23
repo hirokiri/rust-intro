@@ -66,6 +66,7 @@ All lesson notes are stored in the `/docs` directory for future reference.
 | Lesson 7 | [lesson_07_structs_methods.md](docs/lesson_07_structs_methods.md) |
 | Lesson 8 | [lesson_08_enums_pattern_matching.md](docs/lesson_08_enums_pattern_matching.md) |
 | Lesson 9 | [lesson_09_strings_collections.md](docs/lesson_09_strings_collections.md) |
+| Lesson 10 | [lesson_10_error_handling.md](docs/lesson_10_error_handling.md) |
 
 ## Reference Material
 - [The Rust Programming Language (The Book)](https://doc.rust-lang.org/book/)

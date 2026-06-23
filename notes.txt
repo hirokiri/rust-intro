@@ -1,0 +1,4 @@
+Rust error handling practice:
+- Option handles missing values.
+- Result handles recoverable failures.
+- The ? operator returns early on errors.

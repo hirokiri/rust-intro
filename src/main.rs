@@ -1,102 +1,79 @@
-use std::collections::HashMap;
+use std::fs;
+use std::num::ParseIntError;
 
 fn main() {
-    // Excersise 9-1
-    let first_name = "ada";
-    let last_name = "lovelace";
-    let formatted_name = format_name(first_name, last_name);
-    println!("{}", formatted_name); // Output: "Ada, Lovelace"
-
-    // Exercise 9-2
+    // Exercise 10-1: Safe Highest Score
     let scores = vec![92, 81, 77, 100, 68];
-    let total = total_score(&scores);
-    let average = average_score(&scores);
-    let highest = highest_score(&scores);
-    println!("Total score: {}", total); // Output: "Total score: 418"
-    println!("Average score: {}", average); // Output: "Average score: 83.6"
-    println!("Highest score: {:?}", highest); // Output: "Highest score: Some(100)"
+    let empty_scores: Vec<i64> = vec![];
 
-    // Exercise 9-3
-    let scores_vec = vec![85, 90, 78, 92];
-    let index = 2;
-    let description = describe_score(&scores_vec, index);
-    println!("{}", description); // Output: "Score at index 2 is 78"
-    println!("{}", describe_score(&scores_vec, 5)); // Output: "No score at index 5"
+    print_highest_score(&scores);
+    print_highest_score(&empty_scores);
 
-    // Excersise 9-4
-    let text = "rust is fast rust is safe rust is fun";
-    let counts = word_counts(text);
-    for (word, count) in &counts{
-        println!("{}: {}", word, count);
+    // Exercise 10-2: Parse a Score
+    for input in ["95", "not a score"] {
+        match parse_score(input) {
+            Ok(score) => println!("Parsed score: {}", score),
+            Err(error) => println!("Could not parse '{input}': {error}"),
+        }
     }
-    println!("{:?}", counts);
 
-    //Excersise 9-5
-    let mut inventory = HashMap::new();
-    inventory.insert(String::from("apples"), 3);
-    inventory.insert(String::from("bananas"), 2);
-    //add 5 more apples
-    let count_apples =  inventory.entry(String::from("apples")).or_default();
-    *count_apples += 5;
+    // Exercise 10-3: Parse and Validate a Percentage
+    for input in ["85", "101", "abc"] {
+        match parse_percentage(input) {
+            Ok(percentage) => println!("Valid percentage: {}%", percentage),
+            Err(message) => println!("Invalid percentage '{input}': {message}"),
+        }
+    }
 
-    // add "oranges" with count 4 if does not already exist
-    inventory.entry(String::from("oranges")).or_insert(4);
+    // Exercise 10-4: Use `?`
+    for (left, right) in [("40", "2"), ("40", "oops")] {
+        match add_scores(left, right) {
+            Ok(total) => println!("{left} + {right} = {total}"),
+            Err(error) => println!("Could not add '{left}' and '{right}': {error}"),
+        }
+    }
 
-    // try to insert "bananas" with count 99 only if bananas are missing
-    inventory.entry(String::from("bananas")).or_insert(99);
-
-    println!("{:?}", inventory);
+    // Exercise 10-5: File Reading Experiment
+    match read_notes() {
+        Ok(contents) => println!("notes.txt contents:\n{contents}"),
+        Err(error) => println!("Could not read notes.txt: {error}"),
+    }
 }
 
-
-fn format_name(first: &str, last: &str) -> String {
-    let mut first_chars = first.chars();
-    let mut last_chars = last.chars();
-    let formatted_first = match first_chars.next() {
-        None => String::new(),
-        Some(f) => f.to_uppercase().collect::<String>() + first_chars.as_str(),
-    };
-    let formatted_last = match last_chars.next() {
-        None => String::new(),
-        Some(l) => l.to_uppercase().collect::<String>() + last_chars.as_str(),
-    };
-    format!("{}, {}", formatted_first, formatted_last)
+fn highest_score(scores: &[i64]) -> Option<i64> {
+    scores.iter().max().copied()
 }
 
-fn total_score(scores: &[i64]) -> i64 {
-    scores.iter().sum()
+fn print_highest_score(scores: &[i64]) {
+    match highest_score(scores) {
+        Some(score) => println!("Highest score: {}", score),
+        None => println!("No scores available"),
+    }
 }
 
-fn average_score(scores: &[i64]) -> f64 {
-    let total = total_score(scores);
-    let count = scores.len() as f64;
-    if count == 0.0 {
-        0.0
+fn parse_score(input: &str) -> Result<i32, ParseIntError> {
+    input.parse::<i32>()
+}
+
+fn parse_percentage(input: &str) -> Result<u8, String> {
+    let number = input
+        .parse::<u16>()
+        .map_err(|_| format!("'{input}' is not a valid number"))?;
+
+    if number > 100 {
+        Err(format!("{number} is greater than 100"))
     } else {
-        total as f64 / count
+        Ok(number as u8)
     }
 }
 
-fn highest_score(scores: &[i64]) -> i64 {
-    *scores.iter().max().unwrap()
+fn add_scores(left: &str, right: &str) -> Result<i32, ParseIntError> {
+    let left_score = left.parse::<i32>()?;
+    let right_score = right.parse::<i32>()?;
+
+    Ok(left_score + right_score)
 }
 
-
-
-fn describe_score(score: &Vec<i32>, index: usize) -> String {
-    if let Some(value) = score.get(index) {
-        format!("Score at index {} is {}", index, value)
-    } else {
-        format!("No score at index {}", index)
-    }
-}
-
-
-fn word_counts(text: &str) -> HashMap<String, u32> {
-    let mut counts = HashMap::new();
-    for word in text.split_whitespace() {
-        let count = counts.entry(String::from(word)).or_insert(0);
-        *count += 1;
-    }
-    counts
+fn read_notes() -> Result<String, std::io::Error> {
+    fs::read_to_string("notes.txt")
 }
