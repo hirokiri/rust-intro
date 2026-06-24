@@ -8,8 +8,8 @@ Welcome to your Rust learning repository! This project is a guided exploration o
 
 ## Project Structure
 
-- `src/main.rs`: CLI dispatcher — accepts `--lesson N` to run a specific lesson.
-- `src/bin/sandbox.rs` and `src/sandbox.rs`: A sandbox runner that can run lessons directly (default lesson is 1).
+- `src/main.rs`: CLI dispatcher — accepts `--lesson N` to run a specific lesson; if `--lesson` is not provided, it delegates to `src/sandbox.rs`.
+- `src/sandbox.rs`: Sandbox runner used when no `--lesson` is supplied (currently prints a small sandbox message).
 - `src/answers/`: Per-lesson example modules exposing `pub fn run()` (no longer contain `main`).
 - `docs/`: Lesson documents, exercises and explanations.
 - `Cargo.toml`: Project manifest.
