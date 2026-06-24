@@ -1,49 +1,97 @@
 // Lesson 13 — Iterators & Closures
 
+// More detailed examples covering common adapters, consumers, and closure traits.
+use std::iter;
+
 pub fn run() {
-    // Iterator adapters: map, filter, collect
+    iterator_basics();
+    iterator_patterns();
+    closure_variants();
+    collecting_examples();
+}
+
+fn iterator_basics() {
     let v = vec![1, 2, 3, 4, 5];
-    let squared_evens: Vec<i32> = v
-        .iter()
-        .map(|x| x * x)
-        .filter(|x| x % 2 == 0)
-        .cloned()
-        .collect();
-    println!("squared evens: {:?}", squared_evens);
 
-    // Consumers: sum, product (fold)
-    let sum: i32 = v.iter().sum();
-    println!("sum: {}", sum);
+    // iter() yields &i32; cloned() transforms &i32 -> i32
+    let squared_evens: Vec<i32> = v.iter().map(|x| x * x).filter(|x| x % 2 == 0).cloned().collect();
+    println!("squared evens (iter+cloned): {:?}", squared_evens);
 
-    let product: i32 = v.iter().fold(1, |acc, &x| acc * x);
-    println!("product (fold): {}", product);
+    // into_iter() consumes the collection
+    let v2 = vec![1, 2, 3, 4, 5];
+    let doubled: Vec<i32> = v2.into_iter().map(|x| x * 2).collect();
+    println!("doubled (into_iter): {:?}", doubled);
 
-    // Closures capturing environment (Fn)
-    let factor = 3;
-    let multiply = |x: i32| x * factor; // captures factor by reference (Copy here)
-    let mapped: Vec<i32> = (1..=5).map(multiply).collect();
-    println!("mapped with closure capturing factor: {:?}", mapped);
+    // iter_mut() allows mutation in-place
+    let mut names = vec![String::from("alice"), String::from("bob")];
+    for s in names.iter_mut() { s.push('!'); }
+    println!("names after iter_mut: {:?}", names);
+}
 
-    // move closure: transfers ownership into closure
-    let owned_vec = vec![10, 20, 30];
-    let consume = move || {
-        println!("owned_vec inside move closure: len={}", owned_vec.len());
-        // owned_vec is moved and cannot be used after this point
-    };
-    consume();
-
-    // Lazy evaluation: nothing computed until consumed
-    let lazy = (1..)
-        .map(|x| x * x)
-        .take(5); // still lazy
-    println!("squares (lazy take 5):");
-    for n in lazy {
-        println!("  {}", n);
+fn iterator_patterns() {
+    // enumerate, peekable, zip, flat_map
+    let nums: Vec<i32> = (1..=5).collect();
+    for (i, n) in nums.iter().enumerate() {
+        println!("index {} => {}", i, n);
     }
 
-    // Iterator adapters are composed without allocations until collect/consume
+    let mut it = (1..).map(|x| x * x).peekable();
+    println!("peek: {:?}", it.peek());
+    for n in it.take(5) { println!("square: {}", n); }
+
+    let words = vec!["a b", "c d e"];
+    let flattened: Vec<&str> = words.into_iter().flat_map(|s| s.split_whitespace()).collect();
+    println!("flattened: {:?}", flattened);
+
+    let a = [1,2,3];
+    let b = [4,5,6];
+    let zipped: Vec<(i32,i32)> = a.iter().cloned().zip(b.iter().cloned()).collect();
+    println!("zipped: {:?}", zipped);
+
+    let sum_of_squares: i32 = (1..=10).map(|x| x*x).filter(|x| x % 2 == 0).sum();
+    println!("sum_of_squares (even squares): {}", sum_of_squares);
 }
 
-fn main() {
-    run();
+fn closure_variants() {
+    // Fn: immutable borrow
+    let x = 5;
+    let add_x = |n: i32| n + x; // implements Fn
+    println!("add_x(3) = {}", add_x(3));
+
+    // FnMut: mutating captured environment
+    let mut counter = 0;
+    {
+        let mut inc = |n: i32| { counter += n; counter };
+        println!("inc(2) = {}", inc(2));
+        println!("inc(3) = {}", inc(3));
+    }
+    println!("counter after closure: {}", counter);
+
+    // FnOnce: consumes captured value
+    let s = String::from("consumed");
+    let consume = move || {
+        println!("inside consume: {}", s);
+        // s is moved and dropped here
+    };
+    consume();
+    // cannot use s here
 }
+
+fn collecting_examples() {
+    // collect into different container types
+    let nums = vec![1,2,3,4];
+    let set: std::collections::HashSet<i32> = nums.iter().cloned().collect();
+    println!("collected into HashSet: {:?}", set);
+
+    // product using fold vs product()
+    let nums2 = [2,3,4];
+    let product_fold: i32 = nums2.iter().fold(1, |acc, &x| acc * x);
+    let product_direct: i32 = nums2.iter().product();
+    println!("product_fold = {}, product_direct = {}", product_fold, product_direct);
+
+    // infinite iterators + take
+    let ones: Vec<i32> = iter::repeat(1).take(5).collect();
+    println!("ones: {:?}", ones);
+}
+
+fn main() { run(); }
