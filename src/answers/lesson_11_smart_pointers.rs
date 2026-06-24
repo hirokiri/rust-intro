@@ -83,6 +83,3 @@ fn list_sum(list: &List) -> i32 {
     }
 }
 
-fn main() {
-    run();
-}

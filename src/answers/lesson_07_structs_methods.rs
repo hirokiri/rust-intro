@@ -88,6 +88,3 @@ fn build_user(username: String, email: String) -> User {
     }
 }
 
-fn main() {
-    run();
-}

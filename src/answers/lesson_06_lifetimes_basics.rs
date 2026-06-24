@@ -47,6 +47,3 @@ struct Book<'a> {
     author: &'a str,
 }
 
-fn main() {
-    run();
-}

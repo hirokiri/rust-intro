@@ -78,6 +78,3 @@ fn read_notes() -> Result<String, std::io::Error> {
     fs::read_to_string("notes.txt")
 }
 
-fn main() {
-    run();
-}

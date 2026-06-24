@@ -87,6 +87,3 @@ fn inventory_updates() -> HashMap<String, i32> {
     inventory
 }
 
-fn main() {
-    run();
-}

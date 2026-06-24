@@ -14,7 +14,7 @@ fn iterator_basics() {
     let v = vec![1, 2, 3, 4, 5];
 
     // iter() yields &i32; cloned() transforms &i32 -> i32
-    let squared_evens: Vec<i32> = v.iter().map(|x| x * x).filter(|x| x % 2 == 0).cloned().collect();
+    let squared_evens: Vec<i32> = v.iter().map(|&x| x * x).filter(|x| x % 2 == 0).collect();
     println!("squared evens (iter+cloned): {:?}", squared_evens);
 
     // into_iter() consumes the collection
@@ -94,4 +94,3 @@ fn collecting_examples() {
     println!("ones: {:?}", ones);
 }
 
-fn main() { run(); }

@@ -73,6 +73,3 @@ fn get_port(env_var: Option<&str>) -> u16 {
     }
 }
 
-fn main() {
-    run();
-}

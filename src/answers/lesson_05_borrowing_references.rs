@@ -30,6 +30,3 @@ fn add_suffix(s: &mut String) {
     s.push_str(" - Modified");
 }
 
-fn main() {
-    run();
-}

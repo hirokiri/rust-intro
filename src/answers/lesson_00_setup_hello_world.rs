@@ -20,6 +20,5 @@ pub fn run() {
     println!("cargo build --release");
 }
 
-fn main() {
-    run();
-}
+// main removed; use the top-level runner
+

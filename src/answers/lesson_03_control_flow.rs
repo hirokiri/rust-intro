@@ -39,6 +39,3 @@ pub fn run() {
     println!("{}", result);
 }
 
-fn main() {
-    run();
-}

@@ -53,6 +53,3 @@ fn fibonacci(n: u32) -> u32 {
     current
 }
 
-fn main() {
-    run();
-}

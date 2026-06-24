@@ -27,6 +27,3 @@ fn take_and_give_back(s: String) -> String {
     s
 }
 
-fn main() {
-    run();
-}

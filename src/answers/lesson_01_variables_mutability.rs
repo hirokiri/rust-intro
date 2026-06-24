@@ -35,6 +35,3 @@ pub fn run() {
     println!("outer x = {}", x);
 }
 
-fn main() {
-    run();
-}

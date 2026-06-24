@@ -1,78 +1,58 @@
-use std::cell::RefCell;
-use std::rc::Rc;
+use rust_intro::answers;
+use rust_intro::sandbox;
+use std::env;
+
+fn usage() {
+    eprintln!("Usage: --lesson N   (e.g. --lesson 1)");
+    eprintln!("Available lessons: 0..13");
+}
 
 fn main() {
-    // Exercise 11-1: Boxed Number
-    let boxed = Box::new(42);
-    println!("Boxed value: {}", boxed);
-    println!("Dereferenced value: {}", *boxed);
-    println!("Doubled boxed value: {}", double_boxed(boxed));
-
-    // Exercise 11-2: Recursive List with `Box`
-    let list = List::Cons(
-        1,
-        Box::new(List::Cons(2, Box::new(List::Cons(3, Box::new(List::Nil))))),
-    );
-    println!("List sum: {}", list_sum(&list));
-
-    // Exercise 11-3: Shared Name with `Rc`
-    let shared_name = Rc::new(String::from("Ferris"));
-    println!("Initial strong count: {}", Rc::strong_count(&shared_name));
-
-    let first = Rc::clone(&shared_name);
-    println!("After first clone: {}", Rc::strong_count(&shared_name));
-
-    {
-        let second = Rc::clone(&shared_name);
-        println!("After second clone: {}", Rc::strong_count(&shared_name));
-        println!("First clone: {}", first);
-        println!("Second clone: {}", second);
+    let args: Vec<String> = env::args().collect();
+    let mut lesson: Option<usize> = None;
+    let mut i = 1;
+    while i < args.len() {
+        match args[i].as_str() {
+            "--lesson" => {
+                if i + 1 < args.len() {
+                    lesson = args[i + 1].parse().ok();
+                    i += 2;
+                } else {
+                    usage();
+                    std::process::exit(1);
+                }
+            }
+            _ => {
+                i += 1;
+            }
+        }
     }
 
-    println!(
-        "After second clone drops: {}",
-        Rc::strong_count(&shared_name)
-    );
-
-    // Exercise 11-4: Counter with `RefCell`
-    let counter = RefCell::new(0);
-    *counter.borrow_mut() += 1;
-    *counter.borrow_mut() += 1;
-    *counter.borrow_mut() += 1;
-    println!("Counter value: {}", counter.borrow());
-
-    // Exercise 11-5: Shared Mutable Counter
-    let shared_counter = Rc::new(RefCell::new(0));
-    println!(
-        "Shared counter initial strong count: {}",
-        Rc::strong_count(&shared_counter)
-    );
-
-    let add_five = Rc::clone(&shared_counter);
-    let add_ten = Rc::clone(&shared_counter);
-
-    *add_five.borrow_mut() += 5;
-    *add_ten.borrow_mut() += 10;
-
-    println!(
-        "Shared counter final strong count: {}",
-        Rc::strong_count(&shared_counter)
-    );
-    println!("Shared counter value: {}", shared_counter.borrow());
-}
-
-enum List {
-    Cons(i32, Box<List>),
-    Nil,
-}
-
-fn double_boxed(value: Box<i32>) -> i32 {
-    *value * 2
-}
-
-fn list_sum(list: &List) -> i32 {
-    match list {
-        List::Cons(value, next) => value + list_sum(next),
-        List::Nil => 0,
+    match lesson {
+        Some(n) => match n {
+            0 => answers::lesson_00_setup_hello_world::run(),
+            1 => answers::lesson_01_variables_mutability::run(),
+            2 => answers::lesson_02_data_types_functions::run(),
+            3 => answers::lesson_03_control_flow::run(),
+            4 => answers::lesson_04_ownership_basics::run(),
+            5 => answers::lesson_05_borrowing_references::run(),
+            6 => answers::lesson_06_lifetimes_basics::run(),
+            7 => answers::lesson_07_structs_methods::run(),
+            8 => answers::lesson_08_enums_pattern_matching::run(),
+            9 => answers::lesson_09_strings_collections::run(),
+            10 => answers::lesson_10_error_handling::run(),
+            11 => answers::lesson_11_smart_pointers::run(),
+            12 => answers::lesson_12_traits_generics::run(),
+            13 => answers::lesson_13_iterators_closures::run(),
+            other => {
+                eprintln!("Unknown lesson: {}", other);
+                usage();
+                std::process::exit(1);
+            }
+        },
+        None => {
+            // No --lesson provided: delegate to sandbox runner (default behavior)
+            sandbox::run_from_args(&args);
+        }
     }
 }

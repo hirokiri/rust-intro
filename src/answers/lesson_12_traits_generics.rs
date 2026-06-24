@@ -83,6 +83,3 @@ where
     }
 }
 
-fn main() {
-    run();
-}
