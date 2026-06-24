@@ -12,3 +12,7 @@ pub mod lesson_10_error_handling;
 pub mod lesson_11_smart_pointers;
 pub mod lesson_12_traits_generics;
 pub mod lesson_13_iterators_closures;
+pub mod lesson_14_modules_project_structure;
+pub mod lesson_15_concurrency;
+pub mod lesson_16_testing_documentation;
+pub mod lesson_17_macros_advanced;
