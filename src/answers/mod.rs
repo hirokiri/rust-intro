@@ -10,3 +10,4 @@ pub mod lesson_08_enums_pattern_matching;
 pub mod lesson_09_strings_collections;
 pub mod lesson_10_error_handling;
 pub mod lesson_11_smart_pointers;
+pub mod lesson_12_traits_generics;
