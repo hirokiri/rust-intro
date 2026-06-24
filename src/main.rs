@@ -1,79 +1,78 @@
-use std::fs;
-use std::num::ParseIntError;
+use std::cell::RefCell;
+use std::rc::Rc;
 
 fn main() {
-    // Exercise 10-1: Safe Highest Score
-    let scores = vec![92, 81, 77, 100, 68];
-    let empty_scores: Vec<i64> = vec![];
+    // Exercise 11-1: Boxed Number
+    let boxed = Box::new(42);
+    println!("Boxed value: {}", boxed);
+    println!("Dereferenced value: {}", *boxed);
+    println!("Doubled boxed value: {}", double_boxed(boxed));
 
-    print_highest_score(&scores);
-    print_highest_score(&empty_scores);
+    // Exercise 11-2: Recursive List with `Box`
+    let list = List::Cons(
+        1,
+        Box::new(List::Cons(2, Box::new(List::Cons(3, Box::new(List::Nil))))),
+    );
+    println!("List sum: {}", list_sum(&list));
 
-    // Exercise 10-2: Parse a Score
-    for input in ["95", "not a score"] {
-        match parse_score(input) {
-            Ok(score) => println!("Parsed score: {}", score),
-            Err(error) => println!("Could not parse '{input}': {error}"),
-        }
+    // Exercise 11-3: Shared Name with `Rc`
+    let shared_name = Rc::new(String::from("Ferris"));
+    println!("Initial strong count: {}", Rc::strong_count(&shared_name));
+
+    let first = Rc::clone(&shared_name);
+    println!("After first clone: {}", Rc::strong_count(&shared_name));
+
+    {
+        let second = Rc::clone(&shared_name);
+        println!("After second clone: {}", Rc::strong_count(&shared_name));
+        println!("First clone: {}", first);
+        println!("Second clone: {}", second);
     }
 
-    // Exercise 10-3: Parse and Validate a Percentage
-    for input in ["85", "101", "abc"] {
-        match parse_percentage(input) {
-            Ok(percentage) => println!("Valid percentage: {}%", percentage),
-            Err(message) => println!("Invalid percentage '{input}': {message}"),
-        }
+    println!(
+        "After second clone drops: {}",
+        Rc::strong_count(&shared_name)
+    );
+
+    // Exercise 11-4: Counter with `RefCell`
+    let counter = RefCell::new(0);
+    *counter.borrow_mut() += 1;
+    *counter.borrow_mut() += 1;
+    *counter.borrow_mut() += 1;
+    println!("Counter value: {}", counter.borrow());
+
+    // Exercise 11-5: Shared Mutable Counter
+    let shared_counter = Rc::new(RefCell::new(0));
+    println!(
+        "Shared counter initial strong count: {}",
+        Rc::strong_count(&shared_counter)
+    );
+
+    let add_five = Rc::clone(&shared_counter);
+    let add_ten = Rc::clone(&shared_counter);
+
+    *add_five.borrow_mut() += 5;
+    *add_ten.borrow_mut() += 10;
+
+    println!(
+        "Shared counter final strong count: {}",
+        Rc::strong_count(&shared_counter)
+    );
+    println!("Shared counter value: {}", shared_counter.borrow());
+}
+
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
+}
+
+fn double_boxed(value: Box<i32>) -> i32 {
+    *value * 2
+}
+
+fn list_sum(list: &List) -> i32 {
+    match list {
+        List::Cons(value, next) => value + list_sum(next),
+        List::Nil => 0,
     }
-
-    // Exercise 10-4: Use `?`
-    for (left, right) in [("40", "2"), ("40", "oops")] {
-        match add_scores(left, right) {
-            Ok(total) => println!("{left} + {right} = {total}"),
-            Err(error) => println!("Could not add '{left}' and '{right}': {error}"),
-        }
-    }
-
-    // Exercise 10-5: File Reading Experiment
-    match read_notes() {
-        Ok(contents) => println!("notes.txt contents:\n{contents}"),
-        Err(error) => println!("Could not read notes.txt: {error}"),
-    }
-}
-
-fn highest_score(scores: &[i64]) -> Option<i64> {
-    scores.iter().max().copied()
-}
-
-fn print_highest_score(scores: &[i64]) {
-    match highest_score(scores) {
-        Some(score) => println!("Highest score: {}", score),
-        None => println!("No scores available"),
-    }
-}
-
-fn parse_score(input: &str) -> Result<i32, ParseIntError> {
-    input.parse::<i32>()
-}
-
-fn parse_percentage(input: &str) -> Result<u8, String> {
-    let number = input
-        .parse::<u16>()
-        .map_err(|_| format!("'{input}' is not a valid number"))?;
-
-    if number > 100 {
-        Err(format!("{number} is greater than 100"))
-    } else {
-        Ok(number as u8)
-    }
-}
-
-fn add_scores(left: &str, right: &str) -> Result<i32, ParseIntError> {
-    let left_score = left.parse::<i32>()?;
-    let right_score = right.parse::<i32>()?;
-
-    Ok(left_score + right_score)
-}
-
-fn read_notes() -> Result<String, std::io::Error> {
-    fs::read_to_string("notes.txt")
 }
