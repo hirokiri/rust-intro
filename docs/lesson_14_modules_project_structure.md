@@ -1,30 +1,57 @@
 Lesson 14 — Modules & Project Structure
 
-Overview
+Welcome — this page explains modules in plain language with small examples you can copy-paste.
 
-Rust uses modules to organize code into namespaces and control visibility. Modules can be declared inline (mod name { ... }) or as separate files. The crate root (src/lib.rs or src/main.rs) is the top-level module.
+What is a module?
+- A module groups related code (functions, types) together. Think of it as a folder inside your program that holds related tools.
+- The crate root (src/main.rs or src/lib.rs) is the top-level module.
 
-Key concepts
+Why modules matter
+- They keep code organized and prevent name clashes.
+- They control visibility: you decide which items are public (accessible from other modules) and which stay private (for internal use).
 
+Key keywords
 - mod: declare a module
-- pub: make items public outside their module
-- pub(crate): visible within the current crate
-- use: import paths into scope
-- file system mapping: `mod foo;` looks for `foo.rs` or `foo/mod.rs`
+- pub: make an item visible outside its module
+- pub(crate): visible anywhere inside this crate but hidden from other crates
+- use: bring a path into scope to shorten names
+- pub use: re-export an item so callers see a simpler public API
 
-Examples
+Short examples
 
-- Inline modules for small helpers
-- File modules for larger components
+1) Private vs public
+```rust
+mod math {
+    fn internal_mul(a: i32, b: i32) -> i32 { a * b } // private
+    pub fn add(a: i32, b: i32) -> i32 { a + b }       // public
+}
+// Call with: crate::math::add(1, 2)
+```
 
-Exercises
+2) Nested module and re-export
+```rust
+pub mod math {
+    pub fn triple(x: i32) -> i32 { x * 3 }
+    pub mod nested {
+        pub fn double(x: i32) -> i32 { x * 2 }
+        // re-export triple so callers can use math::nested::triple()
+        pub use super::triple;
+    }
+}
+```
 
-Exercise 14-1: Create a `math` module in `src/answers/lesson_14_modules_project_structure.rs` with `add` and `nested::double` functions. Call them from `run()`.
+How files map to modules
+- `mod foo;` in a file looks for `foo.rs` or `foo/mod.rs` beside it.
+- Prefer one module per file for larger modules (cleaner Git diffs, easier navigation).
 
-Exercise 14-2: Split a module into a separate file in `src/` (create a `utils.rs`) and import it with `mod utils; use crate::utils::...`.
+Practical tips
+- Use `pub(crate)` for helpers you want across your crate but not in public API.
+- Keep small helpers private; expose only the functions you want users to rely on.
+- Use `pub use` in a top-level module to present a stable, small surface area.
 
-Key takeaways
+Exercises (easy, with increasing steps)
+1. Move `math` into `src/math.rs`, add `mod math;` in main, and call `math::add(2,3)`.
+2. Make a nested private helper and try to call it from another module — watch the compiler error and then make it `pub(crate)`.
+3. Re-export a commonly used function from a nested module with `pub use` so callers use a flat path.
 
-- Use modules to structure code and control visibility
-- Prefer separate files for larger modules; inline modules are good for small helpers
-- `use` reduces verbosity when accessing deep paths
+If anything is confusing, paste a small example and the compiler error — will explain the exact fix.
