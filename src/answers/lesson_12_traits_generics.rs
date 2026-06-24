@@ -18,7 +18,7 @@ pub fn run() {
     println!("Largest char: {}", largest(&chars));
 
     // Exercise 12-3: Pair<T> with bounds
-    let p = Pair { a: 3, b: 5 };
+    let p = Pair::new(3, 5);
     p.cmp_display();
 }
 
@@ -45,7 +45,11 @@ struct Tweet {
     content: String,
 }
 
-impl Summary for Tweet {}
+impl Summary for Tweet {
+    fn summarize(&self) -> String {
+        format!("@{}: {}", self.username, self.content)
+    }
+}
 
 // Generic function using trait bounds. Using Copy to return by value for simplicity.
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {

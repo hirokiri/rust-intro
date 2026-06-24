@@ -10,7 +10,7 @@ pub fn run() {
     //
     // Fix: declare it with `mut` if reassignment is intended.
     let mut x = 5;
-    x = 6;
+    x += 1; // show mutation without overwriting the initial value
     println!("mutable x = {}", x);
 
     // Exercise 1-2
