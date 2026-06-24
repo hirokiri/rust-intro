@@ -1,12 +1,13 @@
 use std::env;
 
 mod answers;
+mod sandbox;
 
 fn usage() {
     eprintln!("Usage:");
     eprintln!("  --lesson N         Run lesson N (e.g. --lesson 3)");
     eprintln!("  [N]                Positional lesson number (e.g. cargo run -- 3)");
-    eprintln!("If neither is provided the program runs the sandbox default (lesson 1).");
+    eprintln!("If neither is provided the program delegates to sandbox.rs (runs default lesson 1).");
 }
 
 fn run_lesson(n: usize) {
@@ -64,8 +65,8 @@ fn main() {
     match lesson {
         Some(n) => run_lesson(n),
         None => {
-            // unified sandbox behavior when no lesson specified: default to lesson 1
-            run_lesson(1);
+            // No --lesson: explicitly delegate to sandbox.rs runner
+            sandbox::run_from_args(&args);
         }
     }
 }
